@@ -1,6 +1,7 @@
 #include <cmath>
 #include "shoe.h"
 #include "deck.h"
+#include "rules.h"
 using namespace std;
 
 Shoe::Shoe(int numberOfDecks) : _numberOfDecks(numberOfDecks) { 
@@ -31,7 +32,7 @@ void Shoe::ShuffleShoe() {
 }
 
 Card Shoe::DrawCard() {
-	if (_drawIndex == _cards.size()) {
+	if ((double)_drawIndex >= _cards.size() * Rules::ReshuffleWhenPlayed) {
 		this->ResetShoe();
 		_drawIndex = 0;
 	}
@@ -44,9 +45,9 @@ int Shoe::GetDecksRemaining() {
 	return (int)ceil((double)_cards.size() / 52);
 }
 
-map<Rank, double> Shoe::CalculateCardProbabilities() {
-	map<Rank, double> remainingCards;
-	map<Rank, double> probabilities;
+unordered_map<Rank, double> Shoe::CalculateCardProbabilities() {
+	unordered_map<Rank, double> remainingCards;
+	unordered_map<Rank, double> probabilities;
 
 	for (int i = 0; i < RANK_COUNT; i++) {
 		remainingCards[ranks[i]] = _numberOfDecks * SUIT_COUNT;

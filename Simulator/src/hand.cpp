@@ -45,3 +45,27 @@ void Hand::PrintHand() {
 	}
 	cout << "\nValue: " << this->CalculateValue() << endl;
 }
+
+bool Hand::Soft17() {
+	bool hasAces = false;
+	int value = 0;
+
+	for (Card c : _cards) {
+		if (c.GetRank() == Ace) {
+			value++;
+			hasAces = true;
+		}
+		else {
+			value += c.GetCardValue();
+		}
+	}
+
+	if (hasAces && value + 10 == 17) {
+		return true;
+	}
+	return false;
+}
+
+int Hand::CardCount() {
+	return _cards.size();
+}

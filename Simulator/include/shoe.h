@@ -1,6 +1,7 @@
 #include <vector>
-#include <map>
-#include <card.h>
+#include <unordered_map>
+#include "card.h"
+#include "rules.h"
 
 class Shoe {
 public:
@@ -9,10 +10,10 @@ public:
 	void ShuffleShoe();
 	Card DrawCard();
 	int GetDecksRemaining(); // Approx. how many decks still remaining
-	std::map<Rank, double> CalculateCardProbabilities();
+	std::unordered_map<Rank, double> CalculateCardProbabilities();
 	void PrintShoe(); // used for debugging
 private:
 	std::vector<Card> _cards;
-	int _numberOfDecks;
+	int _numberOfDecks = Rules::NumberOfDecks;
 	int _drawIndex; // to maintain O(1) for drawing from the beginning
 };
