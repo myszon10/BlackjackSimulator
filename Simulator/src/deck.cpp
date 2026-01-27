@@ -5,8 +5,8 @@ using namespace std;
 Deck::Deck() {
 	Cards.clear();
 	
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 13; j++) {
+	for (int i = 0; i < SUIT_COUNT; i++) {
+		for (int j = 0; j < RANK_COUNT; j++) {
 			Card card(suits[i], ranks[j]);
 			Cards.push_back(card);
 		}
@@ -34,8 +34,8 @@ void Deck::Shuffle() {
 }
 
 void Deck::ResetDeck() {
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 13; j++) {
+	for (int i = 0; i < SUIT_COUNT; i++) {
+		for (int j = 0; j < RANK_COUNT; j++) {
 			Card card(suits[i], ranks[j]);
 			Cards.push_back(card);
 		}
