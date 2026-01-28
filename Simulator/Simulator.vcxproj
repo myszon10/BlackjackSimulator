@@ -126,14 +126,19 @@
   <ItemGroup>
     <ClCompile Include="src\card.cpp" />
     <ClCompile Include="src\deck.cpp" />
+    <ClCompile Include="src\gameEngine.cpp" />
     <ClCompile Include="src\hand.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shoe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\actionRules.h" />
     <ClInclude Include="include\card.h" />
     <ClInclude Include="include\deck.h" />
+    <ClInclude Include="include\gameEngine.h" />
     <ClInclude Include="include\hand.h" />
+    <ClInclude Include="include\roundData.h" />
+    <ClInclude Include="include\rules.h" />
     <ClInclude Include="include\shoe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

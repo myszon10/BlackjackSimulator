@@ -11,6 +11,8 @@ public:
 	bool Soft17();
 	void PrintHand();
 	int CardCount();
+	Card GetLastCard();
+	bool ShouldHitDealer();
 private:
 	std::vector<Card> _cards;
 };

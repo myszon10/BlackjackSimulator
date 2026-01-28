@@ -69,3 +69,21 @@ bool Hand::Soft17() {
 int Hand::CardCount() {
 	return _cards.size();
 }
+
+Card Hand::GetLastCard() {
+	if (_cards.size() == 0) {
+		throw runtime_error("No cards to check");
+	}
+	return _cards.back();
+}
+
+bool Hand::ShouldHitDealer() {
+	int value = this->CalculateValue();
+	if (value < 17) {
+		return true;
+	}
+	else if (value == 17 && this->Soft17()) {
+		return true;
+	}
+	return false;
+}

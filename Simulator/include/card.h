@@ -16,6 +16,7 @@ public:
 	int GetCardValue();
 	Rank GetRank();
 	friend std::ostream& operator<<(std::ostream& _stream, const Card& c);
+	bool IsAce();
 private:
 	Suit _suit;
 	Rank _rank;

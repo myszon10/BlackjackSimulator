@@ -70,3 +70,7 @@ ostream& operator<<(ostream& _stream, Card const& c) {
 
 	return _stream;
 }
+
+bool Card::IsAce() {
+	return _rank == Ace;
+}

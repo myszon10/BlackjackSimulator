@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "hand.h"
 
@@ -20,4 +21,12 @@ struct RoundState {
 	int bet;
 	int insuranceBet; // == 0 -> no insurance
 	bool playerDone;  // true -> player will not act anymore (stood, busted, doubled down)
+	bool playerBlackjack;
+	bool dealerBlackjack;
+};
+
+struct RoundResult {
+	int unitsWon; 
+	int unitsBet;
+	enum Outcome { PlayerBlackjack, PlayerWon, PlayerLost, Draw } outcome;
 };
