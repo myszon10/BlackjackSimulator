@@ -1,9 +1,11 @@
 #include "gameEngine.h"
 
 void GameEngine::ApplyPlayerAction(RoundState& s, Action a, Shoe& shoe, int& totalBet) {
+	Card newCard;
+	
 	switch (a) {
 	case Hit:
-		Card newCard = shoe.DrawCard();
+		newCard = shoe.DrawCard();
 		s.playerHand.AddCard(newCard);
 
 		if (s.playerHand.IsBust() || s.playerHand.CalculateValue() == 21) {
@@ -18,7 +20,7 @@ void GameEngine::ApplyPlayerAction(RoundState& s, Action a, Shoe& shoe, int& tot
 	case Double:
 		totalBet += s.bet;
 		s.bet *= 2;
-		Card newCard = shoe.DrawCard();
+		newCard = shoe.DrawCard();
 		s.playerHand.AddCard(newCard);
 		s.playerDone = true;
 		break;
@@ -57,6 +59,7 @@ RoundResult GameEngine::playRound(
 
 	// Round loop
 	while (s.phase != Finished) {
+		Action a;
 		switch (s.phase) {
 		// Dealing starting cards
 		case InitialDeal:
@@ -89,7 +92,7 @@ RoundResult GameEngine::playRound(
 		// Insurance - if dealer has ace, can bet half the pot on insurance 
 		// if dealer gets a blackjack
 		case InsuranceOffer:
-			Action a = actionDecider.SelectAction(s, ActionRules::GetLegalActions(s, session));
+			a = actionDecider.SelectAction(s, ActionRules::GetLegalActions(s, session));
 			this->ApplyPlayerAction(s, a, shoe, totalBetAmount);
 			s.phase = PlayerTurn;
 			break;
@@ -101,7 +104,7 @@ RoundResult GameEngine::playRound(
 					break;
 				}
 
-				Action a = actionDecider.SelectAction(s, legal);
+				a = actionDecider.SelectAction(s, legal);
 				this->ApplyPlayerAction(s, a, shoe, totalBetAmount);
 			}
 			s.phase = DealerTurn;

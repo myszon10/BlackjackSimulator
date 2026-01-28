@@ -87,3 +87,7 @@ bool Hand::ShouldHitDealer() {
 	}
 	return false;
 }
+
+int Hand::GetFirstCardValue() {
+	return _cards[0].GetCardValue();
+}

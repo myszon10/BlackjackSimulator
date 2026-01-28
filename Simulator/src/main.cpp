@@ -3,18 +3,25 @@
 #include "windows.h"
 #include "shoe.h"
 #include "hand.h"
+#include "playerWhile17.h"
+#include "roundRunner.h"
 using namespace std;
 
 int main() {
 	SetConsoleOutputCP(CP_UTF8);
-	srand(time(0));
+	//srand(time(0));
+	srand(2);
 
-	Hand test;
+	const int startingBalance = 10000;
+	const int numberOfRounds = 10;
+	const int minBalanceStop = 0;
 
-	test.AddCard(Card(Hearts, Ace));
-	test.AddCard(Card(Spades, Ten));
-	test.AddCard(Card(Diamonds, Queen));
-	test.AddCard(Card(Clubs, Two));
+	Player17Actions actionPolicy;
+	Player17Bets bettingPolicy(startingBalance);
 
-	test.PrintHand();
+	RoundRunner runner(actionPolicy, bettingPolicy, startingBalance);
+
+	runner.PlayRounds(numberOfRounds, minBalanceStop);
+
+	cout << endl << "Simulation complete." << endl;
 }

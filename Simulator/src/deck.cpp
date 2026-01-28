@@ -22,7 +22,7 @@ Card Deck::DrawCard() {
 }
 
 void Deck::Shuffle() {
-	int n = Cards.size();
+	int n = (int)Cards.size();
 
 	while (n > 1) {
 		n--;

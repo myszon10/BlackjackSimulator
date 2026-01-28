@@ -1,3 +1,4 @@
+#pragma once
 #include "rules.h"
 #include "roundData.h"
 
@@ -13,7 +14,7 @@ public:
 		}
 		// Determine main outcome
 		if (s.playerBlackjack && !s.dealerBlackjack) {
-			result.unitsWon += s.bet * Rules::BlackjackPayout;
+			result.unitsWon = s.bet + s.bet * Rules::BlackjackPayout;
 			result.outcome = RoundResult::PlayerBlackjack;
 		} 
 		else if (s.dealerBlackjack && !s.playerBlackjack) {
@@ -23,22 +24,25 @@ public:
 			result.outcome = RoundResult::PlayerLost;
 		} 
 		else if (s.dealerHand.IsBust()) {
+			result.unitsWon = 2 * s.bet;
 			result.outcome = RoundResult::PlayerWon;
 		} 
 		else {
 			int playerValue = s.playerHand.CalculateValue();
 			int dealerValue = s.dealerHand.CalculateValue();
 			if (playerValue > dealerValue) {
-				result.unitsWon += s.bet;
+				result.unitsWon = 2 * s.bet;
 				result.outcome = RoundResult::PlayerWon;
 			} 
 			else if (playerValue < dealerValue) {
 				result.outcome = RoundResult::PlayerLost;
 			} 
 			else {
+				result.unitsWon = s.bet;
 				result.outcome = RoundResult::Draw;
 			}
 		}
+
 		return result;
 	}
 };

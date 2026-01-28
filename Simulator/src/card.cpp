@@ -1,6 +1,13 @@
 ﻿#include "card.h"
 using namespace std;
 
+Card::Card() { 
+	_suit = Hearts;
+	_rank = Ace;
+	_isRed = true;
+	_value = 11;
+}
+
 Card::Card(Suit suit, Rank rank) {
 	_suit = suit;
 	_rank = rank;
@@ -73,4 +80,12 @@ ostream& operator<<(ostream& _stream, Card const& c) {
 
 bool Card::IsAce() {
 	return _rank == Ace;
+}
+
+Card Card::operator=(const Card& other) {
+	_suit = other._suit;
+	_rank = other._rank;
+	_value = other._value;
+	_isRed = other._isRed;
+	return *this;
 }

@@ -1,3 +1,5 @@
+#pragma once
+
 namespace Rules {
 	constexpr int NumberOfDecks = 6;
 	constexpr double ReshuffleWhenPlayed = 0.75; // reshuffle shoe if 75% of the shoe was played

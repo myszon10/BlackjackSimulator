@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "card.h"
 
@@ -13,6 +14,7 @@ public:
 	int CardCount();
 	Card GetLastCard();
 	bool ShouldHitDealer();
+	int GetFirstCardValue(); // dealer's value visible to the player
 private:
 	std::vector<Card> _cards;
 };

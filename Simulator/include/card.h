@@ -12,11 +12,13 @@ const int SUIT_COUNT = 4;
 
 class Card {
 public:
+	Card();
 	Card(Suit suit, Rank rank);
 	int GetCardValue();
 	Rank GetRank();
 	friend std::ostream& operator<<(std::ostream& _stream, const Card& c);
 	bool IsAce();
+	Card operator=(const Card& other);
 private:
 	Suit _suit;
 	Rank _rank;

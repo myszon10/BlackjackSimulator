@@ -1,3 +1,4 @@
+#pragma once
 #include "actionRules.h"
 #include "payoutCalculator.h"
 #include "shoe.h"

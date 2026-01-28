@@ -129,6 +129,7 @@
     <ClCompile Include="src\gameEngine.cpp" />
     <ClCompile Include="src\hand.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\roundRunner.cpp" />
     <ClCompile Include="src\shoe.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,7 +138,12 @@
     <ClInclude Include="include\deck.h" />
     <ClInclude Include="include\gameEngine.h" />
     <ClInclude Include="include\hand.h" />
+    <ClInclude Include="include\interfaces.h" />
+    <ClInclude Include="include\payoutCalculator.h" />
+    <ClInclude Include="include\playerSession.h" />
+    <ClInclude Include="include\playerWhile17.h" />
     <ClInclude Include="include\roundData.h" />
+    <ClInclude Include="include\roundRunner.h" />
     <ClInclude Include="include\rules.h" />
     <ClInclude Include="include\shoe.h" />
   </ItemGroup>
