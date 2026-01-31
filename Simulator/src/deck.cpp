@@ -16,9 +16,10 @@ Deck::Deck() {
 }
 
 Card Deck::DrawCard() {
-	if (Cards.size() == 0) {
-		throw runtime_error("No cards left");
-	}
+	if (Cards.empty()) throw runtime_error("No cards left");
+	Card c = Cards.back();
+	Cards.pop_back();
+	return c;
 }
 
 void Deck::Shuffle() {

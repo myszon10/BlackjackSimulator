@@ -14,8 +14,8 @@ class Player17Actions : public IActionPolicy {
 	*/
 public:
 	Action SelectAction(RoundState& state, const std::vector<Action>& legalActions) override {
-		int playerHandValue = state.playerHand.CalculateValue();
-		int dealerValue = state.dealerHand.GetFirstCardValue();
+		int playerHandValue = state.playerHands[0].CalculateValue();
+		int dealerValue = state.dealerHand.GetFirstCard().GetCardValue();
 
 		// Double down decision
 		if (find(legalActions.begin(), legalActions.end(), Double) != legalActions.end()) {

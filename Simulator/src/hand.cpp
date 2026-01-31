@@ -12,27 +12,28 @@ void Hand::AddCard(Card added) {
 }
 
 int Hand::CalculateValue() {
-	isSoft = true;
 	int value = 0;
-	int numberOfAces = 0;
+	int aces = 0;
 
-	for (Card c : _cards) {
-		if (c.GetRank() == Ace) {
-			numberOfAces++;
-		}
-
+	for (Card& c : _cards) {
 		value += c.GetCardValue();
+		if (c.GetRank() == Ace) {
+			aces++;
+		}
 	}
 
-	// "Bust" but Aces were treated as 11 -> treat them as 1
-	while (value > 21 && numberOfAces > 0) {
+	// Reduce aces from 11 -> 1 while busting
+	while (value > 21 && aces > 0) {
 		value -= 10;
-		numberOfAces--;
-		isSoft = false;
+		aces--;
 	}
+
+	// If any ace remains "unreduced", then we are soft
+	isSoft = (aces > 0);
 
 	return value;
 }
+
 
 bool Hand::IsBust() {
 	return this->CalculateValue() > 21;
@@ -49,24 +50,9 @@ void Hand::PrintHand() {
 }
 
 bool Hand::Soft17() {
-	bool hasAces = false;
-	int value = 0;
-
-	for (Card c : _cards) {
-		if (c.GetRank() == Ace) {
-			value++;
-			hasAces = true;
-		}
-		else {
-			value += c.GetCardValue();
-		}
-	}
-
-	if (hasAces && value + 10 == 17) {
-		return true;
-	}
-	return false;
+	return (CalculateValue() == 17 && isSoft);
 }
+
 
 int Hand::CardCount() {
 	return _cards.size();
@@ -90,6 +76,25 @@ bool Hand::ShouldHitDealer() {
 	return false;
 }
 
-int Hand::GetFirstCardValue() {
-	return _cards[0].GetCardValue();
+Card Hand::GetFirstCard() {
+	if (_cards.size() == 0) {
+		throw runtime_error("No cards to check");
+	}
+	return _cards[0];
+}
+
+Card Hand::PopLastCard() {
+	if (_cards.size() == 0) {
+		throw runtime_error("No cards to pop");
+	}
+	Card last = _cards.back();
+	_cards.pop_back();
+	return last;
+}
+
+Card Hand::GetCard(int index) {
+	if (index < 0 || index >= (int)_cards.size()) {
+		throw runtime_error("Card index out of range");
+	}
+	return _cards[index];
 }

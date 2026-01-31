@@ -13,8 +13,10 @@ public:
 	void PrintHand();
 	int CardCount();
 	Card GetLastCard();
+	Card PopLastCard();
+	Card GetCard(int index);
 	bool ShouldHitDealer();
-	int GetFirstCardValue(); // dealer's value visible to the player
+	Card GetFirstCard();
 	bool isSoft = true;
 private:
 	std::vector<Card> _cards;

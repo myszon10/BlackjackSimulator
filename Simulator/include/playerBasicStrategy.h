@@ -12,19 +12,86 @@ class BasicStrategyActions : public IActionPolicy {
 	*/
 public:
 	Action SelectAction(RoundState& state, const std::vector<Action>& legalActions) override {
-		const int total = state.playerHand.CalculateValue();
-		const int up = state.dealerHand.GetFirstCardValue();
+		// Split check first if available
+		const bool canSplit = find(legalActions.begin(), legalActions.end(), Split) != legalActions.end();
+		if (canSplit) {
+			Action sp = DecideSplit(state);
+			if (sp == Split) return Split;
+		}
+
+		Hand& h = state.playerHands[state.activeHand];
+		const int total = h.CalculateValue();
+		const int up = state.dealerHand.GetFirstCard().GetCardValue();
 		const bool canDouble = find(legalActions.begin(), legalActions.end(), Double) != legalActions.end();
 
-		if (state.playerHand.isSoft) {
-			return DecideSoft(total, up, canDouble, legalActions);
-		}
-		else {
-			return DecideHard(total, up, canDouble, legalActions);
-		}
+		if (h.isSoft) return DecideSoft(total, up, canDouble, legalActions);
+		return DecideHard(total, up, canDouble, legalActions);
 	}
 private:
+	Action DecideSplit(RoundState& state) {
+		Hand& h = state.playerHands[state.activeHand];
+		if (h.CardCount() != 2) return Hit;
+
+		Rank r = h.GetCard(0).GetRank();
+		int up = state.dealerHand.GetFirstCard().GetCardValue();
+
+		// Always split A,A and 8,8
+		if (r == Ace || r == Eight) {
+			return Split;
+		}
+
+		// Never split 10-value and 5,5
+		if (r == Ten || r == Jack || r == Queen || r == King || r == Five) {
+			return Hit;
+		}
+
+		// 2,2 and 3,3: split vs 2-7 else hit
+		if (r == Two || r == Three) {
+			if (up >= 2 && up <= 7) 
+				return Split;
+
+			return Hit;
+		}
+
+		// 4,4: split vs 5-6 else hit
+		if (r == Four) {
+			if (up == 5 || up == 6) 
+				return Split;
+
+			return Hit;
+		}
+
+		// 6,6: split vs 2-6 else hit
+		if (r == Six) {
+			if (up >= 2 && up <= 6) 
+				return Split;
+
+			return Hit;
+		}
+
+		// 7,7: split vs 2-7 else hit
+		if (r == Seven) {
+			if (up >= 2 && up <= 7) 
+				return Split;
+
+			return Hit;
+		}
+
+		// 9,9: split vs 2-6 and 8-9; stand vs 7,10,A
+		if (r == Nine) {
+			if ((up >= 2 && up <= 6) || up == 8 || up == 9) 
+				return Split;
+
+			return Stand;
+		}
+
+		return Hit;
+
+	}
+
 	Action DecideHard(int total, int up, bool canDouble, const vector<Action>& legalActions) {
+		(void)legalActions;
+		
 		// Stand on 17+
 		if (total >= 17) return Stand;
 

@@ -6,22 +6,37 @@
 #include "playerWhile17.h"
 #include "playerUntil12.h"
 #include "playerBasicStrategy.h"
+#include "playerCardCounting.h"
+#include "playerRandom.h"
 #include "roundRunner.h"
+#include "HiLoCounter.h"
 using namespace std;
 
 int main() {
-	SetConsoleOutputCP(CP_UTF8);
-	//srand(time(0));
-	srand(2);
+	ios_base::sync_with_stdio(false);
+	cin.tie(0); cout.tie(0);
 
-	const int startingBalance = 10000;
-	const int numberOfRounds = 5;
+	SetConsoleOutputCP(CP_UTF8);
+	srand(time(0));
+	//srand(2);
+
+	const int startingBalance = 1000000;
+	const int numberOfRounds = 500000;
 	const int minBalanceStop = 0;
 
-	BasicStrategyActions actionPolicy;
-	BasicStrategyBets bettingPolicy(startingBalance);
+	Shoe shoe(Rules::NumberOfDecks);
+	HiLoCounter counter;
 
-	RoundRunner runner(actionPolicy, bettingPolicy, startingBalance);
+	/*PlayerRandomActions actionPolicy;
+	PlayerRandomBets bettingPolicy(startingBalance);*/
+
+	/*BasicStrategyActions actionPolicy;
+	BasicStrategyBets bettingPolicy(startingBalance);*/
+
+	CardCounterActions actionPolicy(counter, shoe);
+	CardCounterBets bettingPolicy(startingBalance, counter, shoe);
+
+	RoundRunner runner(actionPolicy, bettingPolicy, startingBalance, shoe, &counter);
 
 	runner.PlayRounds(numberOfRounds, minBalanceStop);
 

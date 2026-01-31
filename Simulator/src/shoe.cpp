@@ -5,10 +5,12 @@
 using namespace std;
 
 Shoe::Shoe(int numberOfDecks) : _numberOfDecks(numberOfDecks) { 
+	_drawIndex = 0;
 	ResetShoe();
 }
 
 void Shoe::ResetShoe() {
+	_drawIndex = 0;
 	_cards.clear();
 
 	for (int i = 0; i < _numberOfDecks; i++) {
@@ -31,19 +33,25 @@ void Shoe::ShuffleShoe() {
 	}
 }
 
-Card Shoe::DrawCard() {
+DrawResult Shoe::DrawCard() {
+	bool reshuffled = false;
+
 	if ((double)_drawIndex >= _cards.size() * Rules::ReshuffleWhenPlayed) {
 		this->ResetShoe();
 		_drawIndex = 0;
+		reshuffled = true;
 	}
 
 	Card drawnCard = _cards[_drawIndex++];
-	return drawnCard;
+	return { drawnCard, reshuffled };
 }
 
 int Shoe::GetDecksRemaining() {
-	return (int)ceil((double)_cards.size() / 52);
+	int remaining = (int)_cards.size() - _drawIndex;
+	if (remaining <= 0) return 0;
+	return (int)ceil((double)remaining / 52.0);
 }
+
 
 void Shoe::PrintShoe() {
 	int cnt = 0;

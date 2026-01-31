@@ -4,12 +4,17 @@
 #include "card.h"
 #include "rules.h"
 
+struct DrawResult {
+	Card card;
+	bool reshuffled;
+};
+
 class Shoe {
 public:
 	Shoe(int numberOfDecks);
 	void ResetShoe();
 	void ShuffleShoe();
-	Card DrawCard();
+	DrawResult DrawCard();
 	int GetDecksRemaining(); // Approx. how many decks still remaining
 	void PrintShoe(); // used for debugging
 private:

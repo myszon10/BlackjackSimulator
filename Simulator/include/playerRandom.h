@@ -4,7 +4,7 @@
 #include <random>
 using namespace std;
 
-class Player17Actions : public IActionPolicy {
+class PlayerRandomActions : public IActionPolicy {
 	/*
 	This player always makes a random choice
 	Insurance: Never
@@ -12,9 +12,6 @@ class Player17Actions : public IActionPolicy {
 	*/
 public:
 	Action SelectAction(RoundState& state, const std::vector<Action>& legalActions) override {
-		int playerHandValue = state.playerHand.CalculateValue();
-		int dealerValue = state.dealerHand.GetFirstCardValue();
-
 		// Double down decision
 		if (find(legalActions.begin(), legalActions.end(), Double) != legalActions.end()) {
 			if (randomWithProb(Rules::randomDoubleDownChance)) {
@@ -38,14 +35,14 @@ private:
 	}
 };
 
-class Player17Bets : public IBettingPolicy {
+class PlayerRandomBets : public IBettingPolicy {
 	/*
 	Betting pattern:
 	- base bet -> initial bankroll // D
 	- final bet -> base bet + randint(-R, R)
 	*/
 public:
-	Player17Bets(int initialBankroll) : _initialBankroll(initialBankroll) {}
+	PlayerRandomBets(int initialBankroll) : _initialBankroll(initialBankroll) {}
 
 	int DetermineBetAmount(RoundState& state, int playerBalance) override {
 		int baseBet = _initialBankroll / D;

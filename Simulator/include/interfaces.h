@@ -17,7 +17,5 @@ public:
 
 /*
 Player strategies (TODO):
-- Random decisions
-- Basic strategy
 - Card counter
 */

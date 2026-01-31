@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "hand.h"
+using namespace std;
 
 enum Phase {
 	Betting,
@@ -12,16 +13,22 @@ enum Phase {
 	Finished
 };
 
-enum Action { Hit, Stand, Double, TakeInsurance, DeclineInsurance };
+enum Action { Hit, Stand, Double, Split, TakeInsurance, DeclineInsurance };
 
 struct RoundState {
 	Phase phase;
-	Hand playerHand;
+
+	vector<Hand> playerHands;
+	vector<int> handBets; // bet per hand (after doubles etc.)
+	vector<bool> handDone;
+	vector<bool> handBlackjack; // true -> 2-card 21 (pays 3:2)
+	vector<bool> handSplitAces;
+	int activeHand = 0;
+
 	Hand dealerHand;
-	int bet;
-	int insuranceBet; // == 0 -> no insurance
-	bool playerDone;  // true -> player will not act anymore (stood, busted, doubled down)
-	bool playerBlackjack;
+
+	int baseBet = 0;
+	int insuranceBet = 0; // == 0 -> no insurance
 	bool dealerBlackjack;
 };
 
