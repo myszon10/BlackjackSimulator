@@ -1,16 +1,14 @@
 #pragma once
 #include "interfaces.h"
 #include "rules.h"
+#include <random>
 using namespace std;
 
 class Player17Actions : public IActionPolicy {
 	/*
-	This player imitates an average casino player. Always hits while his hand value is <= 17
+	This player always makes a random choice
 	Insurance: Never
-	Doubling down:  
-		- player 11 vs dealer 2-10
-		- player 10 vs dealer 2-9
-		- player 9 vs dealer 3-6 
+	Doubling down: doubles down with the probability defined in Rules::randomDoubleDownChance
 	*/
 public:
 	Action SelectAction(RoundState& state, const std::vector<Action>& legalActions) override {
@@ -19,40 +17,40 @@ public:
 
 		// Double down decision
 		if (find(legalActions.begin(), legalActions.end(), Double) != legalActions.end()) {
-			if (playerHandValue == 11) {
-				return Double;
-			}
-			else if (playerHandValue == 10 && dealerValue >= 2 && dealerValue <= 9) {
-				return Double;
-			}
-			else if (playerHandValue == 9 && dealerValue >= 3 && dealerValue <= 6) {
+			if (randomWithProb(Rules::randomDoubleDownChance)) {
 				return Double;
 			}
 		}
 
 		// Hit or Stand decision
-		if (playerHandValue <= 17) {
+		if (randomWithProb(Rules::randomHitChance)) {
 			return Hit;
 		}
 		else {
 			return Stand;
 		}
 	}
+private:
+	// Returns 1 with probability p, otherwise 0
+	int randomWithProb(double p) {
+		double rndDouble = (double)rand() / RAND_MAX;
+		return rndDouble < p;
+	}
 };
 
 class Player17Bets : public IBettingPolicy {
 	/*
-	Betting pattern: 
+	Betting pattern:
 	- base bet -> initial bankroll // D
 	- final bet -> base bet + randint(-R, R)
 	*/
 public:
-	Player17Bets(int initialBankroll) : _initialBankroll(initialBankroll) { }
+	Player17Bets(int initialBankroll) : _initialBankroll(initialBankroll) {}
 
 	int DetermineBetAmount(RoundState& state, int playerBalance) override {
 		int baseBet = _initialBankroll / D;
 		int variation = rand() % (2 * R + 1) - R; // randint(-R, R)
-		
+
 		return baseBet + variation;
 	}
 

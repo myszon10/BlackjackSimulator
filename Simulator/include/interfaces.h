@@ -17,8 +17,6 @@ public:
 
 /*
 Player strategies (TODO):
-- Always hit while <= 17
-- Always hit until 12+
 - Random decisions
 - Basic strategy
 - Card counter

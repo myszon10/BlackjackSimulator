@@ -140,7 +140,10 @@
     <ClInclude Include="include\hand.h" />
     <ClInclude Include="include\interfaces.h" />
     <ClInclude Include="include\payoutCalculator.h" />
+    <ClInclude Include="include\playerBasicStrategy.h" />
+    <ClInclude Include="include\playerRandom.h" />
     <ClInclude Include="include\playerSession.h" />
+    <ClInclude Include="include\playerUntil12.h" />
     <ClInclude Include="include\playerWhile17.h" />
     <ClInclude Include="include\roundData.h" />
     <ClInclude Include="include\roundRunner.h" />

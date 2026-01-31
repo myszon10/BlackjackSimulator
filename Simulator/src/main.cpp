@@ -4,6 +4,8 @@
 #include "shoe.h"
 #include "hand.h"
 #include "playerWhile17.h"
+#include "playerUntil12.h"
+#include "playerBasicStrategy.h"
 #include "roundRunner.h"
 using namespace std;
 
@@ -13,11 +15,11 @@ int main() {
 	srand(2);
 
 	const int startingBalance = 10000;
-	const int numberOfRounds = 10;
+	const int numberOfRounds = 5;
 	const int minBalanceStop = 0;
 
-	Player17Actions actionPolicy;
-	Player17Bets bettingPolicy(startingBalance);
+	BasicStrategyActions actionPolicy;
+	BasicStrategyBets bettingPolicy(startingBalance);
 
 	RoundRunner runner(actionPolicy, bettingPolicy, startingBalance);
 

@@ -45,29 +45,6 @@ int Shoe::GetDecksRemaining() {
 	return (int)ceil((double)_cards.size() / 52);
 }
 
-unordered_map<Rank, double> Shoe::CalculateCardProbabilities() {
-	unordered_map<Rank, double> remainingCards;
-	unordered_map<Rank, double> probabilities;
-
-	for (int i = 0; i < RANK_COUNT; i++) {
-		remainingCards[ranks[i]] = _numberOfDecks * SUIT_COUNT;
-	}
-
-	// iterating through cards already drawn
-	for (int i = 0; i < _drawIndex; i++) { 
-		Card currentCard = _cards[i];
-		remainingCards[currentCard.GetRank()]--;
-	}
-
-	int totalRemainingCards = _cards.size() - _drawIndex;
-
-	for (int i = 0; i < RANK_COUNT; i++) {
-		probabilities[ranks[i]] = (double)remainingCards[ranks[i]] / totalRemainingCards;
-	}
-
-	return probabilities;
-}
-
 void Shoe::PrintShoe() {
 	int cnt = 0;
 	for (Card c : _cards) {

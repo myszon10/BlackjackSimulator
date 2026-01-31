@@ -12,6 +12,7 @@ void Hand::AddCard(Card added) {
 }
 
 int Hand::CalculateValue() {
+	isSoft = true;
 	int value = 0;
 	int numberOfAces = 0;
 
@@ -27,6 +28,7 @@ int Hand::CalculateValue() {
 	while (value > 21 && numberOfAces > 0) {
 		value -= 10;
 		numberOfAces--;
+		isSoft = false;
 	}
 
 	return value;

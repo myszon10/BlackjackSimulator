@@ -15,6 +15,7 @@ public:
 	Card GetLastCard();
 	bool ShouldHitDealer();
 	int GetFirstCardValue(); // dealer's value visible to the player
+	bool isSoft = true;
 private:
 	std::vector<Card> _cards;
 };

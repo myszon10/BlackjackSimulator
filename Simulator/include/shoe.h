@@ -11,7 +11,6 @@ public:
 	void ShuffleShoe();
 	Card DrawCard();
 	int GetDecksRemaining(); // Approx. how many decks still remaining
-	std::unordered_map<Rank, double> CalculateCardProbabilities();
 	void PrintShoe(); // used for debugging
 private:
 	std::vector<Card> _cards;
