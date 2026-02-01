@@ -2,6 +2,7 @@
 #include "shoe.h"
 #include "deck.h"
 #include "rules.h"
+#include "rng.h"
 using namespace std;
 
 Shoe::Shoe(int numberOfDecks) : _numberOfDecks(numberOfDecks) { 
@@ -26,7 +27,7 @@ void Shoe::ShuffleShoe() {
 
 	while (n > 1) {
 		n--;
-		int k = rand() % (n + 1);
+		int k = RNG::Int(0, n);
 		Card tmp = _cards[k];
 		_cards[k] = _cards[n];
 		_cards[n] = tmp;

@@ -1,7 +1,8 @@
 #pragma once
+#include <random>
 #include "interfaces.h"
 #include "rules.h"
-#include <random>
+#include "rng.h"
 using namespace std;
 
 class PlayerRandomActions : public IActionPolicy {
@@ -14,18 +15,10 @@ public:
 	Action SelectAction(RoundState& state, const std::vector<Action>& legalActions) override {
 		// Double down decision
 		if (find(legalActions.begin(), legalActions.end(), Double) != legalActions.end()) {
-			if (randomWithProb(Rules::randomDoubleDownChance)) {
-				return Double;
-			}
+			if (RNG::Chance(Rules::randomDoubleDownChance)) return Double;
 		}
-
 		// Hit or Stand decision
-		if (randomWithProb(Rules::randomHitChance)) {
-			return Hit;
-		}
-		else {
-			return Stand;
-		}
+		return RNG::Chance(Rules::randomHitChance) ? Hit : Stand;
 	}
 private:
 	// Returns 1 with probability p, otherwise 0
@@ -46,7 +39,7 @@ public:
 
 	int DetermineBetAmount(RoundState& state, int playerBalance) override {
 		int baseBet = _initialBankroll / D;
-		int variation = rand() % (2 * R + 1) - R; // randint(-R, R)
+		int variation = RNG::Int(-R, R);
 
 		return baseBet + variation;
 	}

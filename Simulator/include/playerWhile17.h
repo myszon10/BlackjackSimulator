@@ -1,6 +1,7 @@
 #pragma once
 #include "interfaces.h"
 #include "rules.h"
+#include "rng.h"
 using namespace std;
 
 class Player17Actions : public IActionPolicy {
@@ -51,7 +52,7 @@ public:
 
 	int DetermineBetAmount(RoundState& state, int playerBalance) override {
 		int baseBet = _initialBankroll / D;
-		int variation = rand() % (2 * R + 1) - R; // randint(-R, R)
+		int variation = RNG::Int(-R, R);
 		
 		return baseBet + variation;
 	}

@@ -14,8 +14,3 @@ public:
 	virtual int DetermineBetAmount(RoundState& state, int playerBalance) = 0;
 	virtual ~IBettingPolicy() = default;
 };
-
-/*
-Player strategies (TODO):
-- Card counter
-*/

@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include "deck.h"
+#include "rng.h"
 using namespace std;
 
 Deck::Deck() {
@@ -27,7 +28,7 @@ void Deck::Shuffle() {
 
 	while (n > 1) {
 		n--;
-		int k = rand() % (n + 1);
+		int k = RNG::Int(0, n);
 		Card tmp = Cards[k];
 		Cards[k] = Cards[n];
 		Cards[n] = tmp;
