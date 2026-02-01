@@ -6,7 +6,7 @@ Designed with maintainability and extensibility in mind (SOLID, Strategy pattern
 
 ---
 
-## Highlits
+## Highlights
 
 - **Modular architecture (SOLID / OOD):**
   - Strategy pattern via `IActionPolicy` + `IBettingPolicy`
