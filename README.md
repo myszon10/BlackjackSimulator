@@ -1,6 +1,7 @@
 # Blackjack Simulator 
 
 Console-based **blackjack simulation engine** built to run large-scale experiments and compare playing/betting strategies.
+
 Designed with maintainability and extensibility in mind (SOLID, Strategy pattern, Observer-style event hooks), and supports multithreaded simulations to evaluate multiple strategies concurrently.
 
 ---
